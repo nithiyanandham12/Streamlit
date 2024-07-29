@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import librosa
-import base64
-from urllib.request import urlopen
 
 def analyze_audio(file):
     # Load audio file
@@ -47,47 +45,6 @@ def analyze_audio(file):
     
     df = pd.DataFrame(data)
     return df
-
-# Function to encode image to base64
-def get_image_as_base64(image_url):
-    response = urlopen(image_url)
-    return base64.b64encode(response.read()).decode()
-
-# URL of the logo image in your GitHub repository
-image_url = "https://raw.githubusercontent.com/<username>/<repository>/<branch>/path/to/sba_info_solutions_logo.jpg"
-
-# Display the logo inside the red box
-logo_base64 = get_image_as_base64(image_url)
-
-st.markdown(
-    """
-    <style>
-    .logo-box {
-        border: 2px solid red;
-        width: 150px;
-        height: 150px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-    .logo-box img {
-        max-width: 100%;
-        max-height: 100%;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    f"""
-    <div class="logo-box">
-        <img src="data:image/png;base64,{logo_base64}">
-    </div>
-    """,
-    unsafe_allow_html=True
-)
 
 st.title('Audio File Analysis - SBA Info Solutions')
 
