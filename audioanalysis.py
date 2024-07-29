@@ -11,7 +11,7 @@ def analyze_audio(file):
     
     # Split the audio into 10 segments
     segment_length = len(y) // 10
-    segments = [y[i*segment_length:(i+1)*segment_length) for i in range(10)]
+    segments = [y[i*segment_length:(i+1)*segment_length] for i in range(10)]
     
     # Manually set segment durations for demonstration
     segment_durations = np.linspace(0.5, total_duration, 10)
