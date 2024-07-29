@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import librosa
 import base64
+from urllib.request import urlopen
 
 def analyze_audio(file):
     # Load audio file
@@ -48,12 +49,15 @@ def analyze_audio(file):
     return df
 
 # Function to encode image to base64
-def get_image_as_base64(image_path):
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
+def get_image_as_base64(image_url):
+    response = urlopen(image_url)
+    return base64.b64encode(response.read()).decode()
+
+# URL of the logo image in your GitHub repository
+image_url = "https://raw.githubusercontent.com/<username>/<repository>/<branch>/path/to/sba_info_solutions_logo.jpg"
 
 # Display the logo inside the red box
-logo_base64 = get_image_as_base64("/mnt/data/image.png")  # Update the path if needed
+logo_base64 = get_image_as_base64(image_url)
 
 st.markdown(
     """
