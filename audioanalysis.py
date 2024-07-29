@@ -46,6 +46,9 @@ def analyze_audio(file):
     df = pd.DataFrame(data)
     return df
 
+# Display the logo
+st.image("sba_info_solutions_logo (1).jpg", width=300)
+
 st.title('Audio File Analysis - SBA Info Solutions')
 
 uploaded_file = st.file_uploader('Upload an audio file', type=['wav', 'mp3'])
