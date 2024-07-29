@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import librosa
+import base64
 
 def analyze_audio(file):
     # Load audio file
@@ -10,7 +11,7 @@ def analyze_audio(file):
     
     # Split the audio into 10 segments
     segment_length = len(y) // 10
-    segments = [y[i*segment_length:(i+1)*segment_length] for i in range(10)]
+    segments = [y[i*segment_length:(i+1)*segment_length) for i in range(10)]
     
     # Manually set segment durations for demonstration
     segment_durations = np.linspace(0.5, total_duration, 10)
@@ -46,9 +47,27 @@ def analyze_audio(file):
     df = pd.DataFrame(data)
     return df
 
-st.title('Audio File Analysis - SBA Info Solutions')
+def get_image_as_base64(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
 
-uploaded_file = st.file_uploader('Upload an audio file', type=['wav', 'mp3'])
+# Load logo image and encode it as base64
+logo_path = "/mnt/data/image.png"
+logo_base64 = get_image_as_base64(logo_path)
+
+st.sidebar.markdown(
+    f"""
+    <div style="text-align:center;">
+        <img src="data:image/png;base64,{logo_base64}" width="150">
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+st.sidebar.title('Upload an audio file')
+uploaded_file = st.sidebar.file_uploader('Choose a file', type=['wav', 'mp3'])
+
+st.title('Audio File Analysis - SBA Info Solutions')
 
 if uploaded_file is not None:
     st.audio(uploaded_file, format='audio/wav')
