@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import librosa
+import base64
 
 def analyze_audio(file):
     # Load audio file
@@ -46,7 +47,14 @@ def analyze_audio(file):
     df = pd.DataFrame(data)
     return df
 
+# Function to encode image to base64
+def get_image_as_base64(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
 # Display the logo inside the red box
+logo_base64 = get_image_as_base64("/mnt/data/image.png")  # Update the path if needed
+
 st.markdown(
     """
     <style>
@@ -69,11 +77,11 @@ st.markdown(
 )
 
 st.markdown(
-    """
+    f"""
     <div class="logo-box">
-        <img src="data:image/jpeg;base64,{logo}">
+        <img src="data:image/png;base64,{logo_base64}">
     </div>
-    """.format(logo=open("sba_info_solutions_logo (1).jpg", "rb").read().encode("base64").decode("utf-8")),
+    """,
     unsafe_allow_html=True
 )
 
