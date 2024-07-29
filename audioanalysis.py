@@ -46,8 +46,36 @@ def analyze_audio(file):
     df = pd.DataFrame(data)
     return df
 
-# Display the logo
-st.image("sba_info_solutions_logo (1).jpg", width=300)
+# Display the logo inside the red box
+st.markdown(
+    """
+    <style>
+    .logo-box {
+        border: 2px solid red;
+        width: 150px;
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .logo-box img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    """
+    <div class="logo-box">
+        <img src="data:image/jpeg;base64,{logo}">
+    </div>
+    """.format(logo=open("sba_info_solutions_logo (1).jpg", "rb").read().encode("base64").decode("utf-8")),
+    unsafe_allow_html=True
+)
 
 st.title('Audio File Analysis - SBA Info Solutions')
 
