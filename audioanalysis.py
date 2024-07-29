@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import librosa
 import base64
+import io
 
 def analyze_audio(file):
     # Load audio file
@@ -47,18 +48,22 @@ def analyze_audio(file):
     df = pd.DataFrame(data)
     return df
 
-def get_image_as_base64(image_path):
-    with open(image_path, "rb") as img_file:
+def get_image_as_base64(image):
+    with io.BytesIO(image) as img_file:
         return base64.b64encode(img_file.read()).decode()
 
-# Load logo image and encode it as base64
-logo_path = "/mnt/data/image.png"
-logo_base64 = get_image_as_base64(logo_path)
+# Assuming the image is in the same directory as the script
+# Update the path to point to your file in GitHub or local environment
+logo_path = "sba_info_solutions_logo (1).jpg"
+
+# Read the image file and encode it as base64
+with open(logo_path, "rb") as img_file:
+    logo_base64 = get_image_as_base64(img_file.read())
 
 st.sidebar.markdown(
     f"""
     <div style="text-align:center;">
-        <img src="data:image/png;base64,{logo_base64}" width="150">
+        <img src="data:image/jpeg;base64,{logo_base64}" width="150">
     </div>
     """,
     unsafe_allow_html=True
