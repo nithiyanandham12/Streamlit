@@ -46,7 +46,7 @@ def analyze_audio(file):
     df = pd.DataFrame(data)
     return df
 
-st.title('Audio File Analysis')
+st.title('Audio File Analysis - SBA Info Solutions')
 
 uploaded_file = st.file_uploader('Upload an audio file', type=['wav', 'mp3'])
 
